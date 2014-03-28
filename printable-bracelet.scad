@@ -2,7 +2,7 @@
 bracelet_diameter	= 65; // mm
 bracelet_width		= 12.5;
 bracelet_thickness	= 2;
-bracelet_text		= "RepRp"; // message must be array
+bracelet_text		= "RepRap"; // message must be array
 bracelet_font		= "DejaVu Sans:style=Bold";
 bracelet_font_size	= 7;
 bracelet_spacing		= 7;
