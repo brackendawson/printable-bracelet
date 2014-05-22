@@ -13,6 +13,7 @@ bracelet_kerning		= 0;//[0,7,13.4,20.1,27.1,33.1]; //must be same len as message
 logo_enabled			= 0;
 logo_offset			= -7;
 bevel_size			= 0.5;
+spiral_mode			= 0;
 
 fudge = 0.1;
 detail = 100;
@@ -22,10 +23,12 @@ difference() {
   cylinder(r = bracelet_diameter / 2,
 	  	   h = bracelet_width,
 	  	   $fn = detail);
-  translate([0,0,-fudge])
-    cylinder(r = bracelet_diameter / 2 - bracelet_thickness,
-			h = bracelet_width + 2 * fudge,
-			$fn = detail);
+  if (! spiral_mode) {
+    translate([0,0,-fudge])
+      cylinder(r = bracelet_diameter / 2 - bracelet_thickness,
+	  	       h = bracelet_width + 2 * fudge,
+	    		   $fn = detail);
+  }
 
   for(j = [0 : 360 / bracelet_text_rep : 360]) {
     rotate([0,0,j]) {
@@ -64,30 +67,32 @@ difference() {
   }
 
   //bevel
-  if(bevel_size) {
-    translate([0,0,-fudge])
-      cylinder(r1 = bracelet_diameter / 2 - bracelet_thickness + bevel_size,
-			   r2 = bracelet_diameter / 2 - bracelet_thickness,
-			   h = bevel_size,
-			   $fn = detail);
-    translate([0,0,bracelet_width - bevel_size + fudge])
-      cylinder(r2 = bracelet_diameter / 2 - bracelet_thickness + bevel_size,
-			   r1 = bracelet_diameter / 2 - bracelet_thickness,
-			   h = bevel_size,
-			   $fn = detail);
-    translate([0,0,-fudge]) difference() {
-      cylinder(r = bracelet_diameter / 2 + fudge, h = bevel_size, $fn = detail);
-      cylinder(r1 = bracelet_diameter / 2 - bevel_size,
-			  r2 = bracelet_diameter / 2 + fudge,
-			  h = bevel_size,
-			  $fn = detail);
-    }
-    translate([0,0,bracelet_width - bevel_size + fudge]) difference() {
-      cylinder(r = bracelet_diameter / 2 + fudge, h = bevel_size, $fn = detail);
-      cylinder(r2 = bracelet_diameter / 2 - bevel_size,
-			  r1 = bracelet_diameter / 2 + fudge,
-			  h = bevel_size,
-			  $fn = detail);
+  if (bevel_size) {
+    if (! spiral_mode) {
+      translate([0,0,-fudge])
+        cylinder(r1 = bracelet_diameter / 2 - bracelet_thickness + bevel_size,
+			     r2 = bracelet_diameter / 2 - bracelet_thickness,
+			     h = bevel_size,
+			     $fn = detail);
+      translate([0,0,bracelet_width - bevel_size + fudge])
+        cylinder(r2 = bracelet_diameter / 2 - bracelet_thickness + bevel_size,
+			     r1 = bracelet_diameter / 2 - bracelet_thickness,
+			     h = bevel_size,
+			     $fn = detail);
+      translate([0,0,-fudge]) difference() {
+        cylinder(r = bracelet_diameter / 2 + fudge, h = bevel_size, $fn = detail);
+        cylinder(r1 = bracelet_diameter / 2 - bevel_size,
+			     r2 = bracelet_diameter / 2 + fudge,
+			     h = bevel_size,
+			     $fn = detail);
+      }
+      translate([0,0,bracelet_width - bevel_size + fudge]) difference() {
+        cylinder(r = bracelet_diameter / 2 + fudge, h = bevel_size, $fn = detail);
+        cylinder(r2 = bracelet_diameter / 2 - bevel_size,
+			     r1 = bracelet_diameter / 2 + fudge,
+			     h = bevel_size,
+			     $fn = detail);
+      }
     }
   }
 }
