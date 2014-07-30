@@ -40,7 +40,7 @@ difference() {
 					-bracelet_diameter / 2 + bracelet_thickness / 2,
 					bracelet_voffset]) rotate([90,0,0])
               linear_extrude(height = bracelet_thickness)
-                text(t = bracelet_text[i],
+                text(text = bracelet_text[i],
 				  font = bracelet_font,
 				  size = bracelet_font_size);
         }
@@ -51,7 +51,7 @@ difference() {
 					-bracelet_diameter / 2 + bracelet_thickness / 2,
 					bracelet_voffset]) rotate([90,0,0])
               linear_extrude(height = bracelet_thickness)
-                text(t = bracelet_text[i],
+                text(text = bracelet_text[i],
 				  font = bracelet_font,
 				  size = bracelet_font_size);
         }
